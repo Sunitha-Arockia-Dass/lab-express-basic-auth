@@ -6,12 +6,12 @@
 
     <label>
       Username
-      <input type="text" name="username" placeholder="ironhacker" />
+      <input type="text" name="username" placeholder="ironhacker" required/>
     </label>
 
     <label>
       Password
-      <input type="password" name="password" placeholder="********" />
+      <input type="password" name="password" placeholder="********" required/>
     </label>
 
     <button type="submit">Login</button>
@@ -24,6 +24,11 @@
 
     {{#if flashMessage}}
       {{flashMessage}}
+    {{/if}}
+     {{#if userInLogin}}
+
+<h1>{{errorMessage}}</h1>
+
     {{/if}}
   </h1>
 </div>

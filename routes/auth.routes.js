@@ -11,6 +11,23 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 
 router.post("/signup", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
+  User.find()
+  User.findOne({ username }).then((foundUser) => {
+    if (foundUser) {
+      console.log("user not registered");
+      res.render("auth/signup", {
+        userInDb: true,
+        errorMessage: "User already exists",
+      })
+    }
+  
+  else if (username == "" || password == "") {
+    res.render("auth/signup", {
+      userInLogin: true,
+      errorMessage: "Please fill all details",
+    });
+  }
+  else{
   bcryptjs
     .genSalt(saltRounds)
     .then((salt) => bcryptjs.hash(password, salt))
@@ -18,7 +35,19 @@ router.post("/signup", isLoggedOut, (req, res, next) => {
       User.create({ username, password: hashedPassword }).then((user) => {
         res.render("index");
       });
+    })
+    .catch((error) => {
+      // Handle any errors that occur during the signup process
+      console.error(error); // You can log the error for debugging
+
+      // Render the error message on the page
+      res.render("auth/login", {
+        userInLogin: true,
+        errorMessage: "An error occurred during signup. Please try again later.",
+      });
     });
+  }
+})
 });
 router.get("/user-profile", isLoggedIn, (req, res, next) => {
   console.log(req.session.user);
@@ -69,6 +98,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       errorMessage: "Please fill all details",
     });
   }
+  else{
   User.findOne({ username }).then((foundUser) => {
     if (!foundUser) {
       console.log("user not registered");
@@ -87,6 +117,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       });
     }
   });
+}
 });
 
 router.get("/main", isLoggedIn, (req, res, next) => {
