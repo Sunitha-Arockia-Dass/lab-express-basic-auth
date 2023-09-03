@@ -1,3 +1,4 @@
+const session = require("express-session");
 // We reuse this import in order to have access to the `body` property in requests
 const express = require("express");
 
@@ -16,7 +17,9 @@ const favicon = require("serve-favicon");
 // ℹ️ global package used to `normalize` paths amongst different operating systems
 // https://www.npmjs.com/package/path
 const path = require("path");
-
+const MongoStore = require("connect-mongo");
+const MONGO_URI =
+  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/lab-express-basic-auth";
 // Middleware configuration
 module.exports = (app) => {
   // In development environment the app logs
@@ -35,5 +38,24 @@ module.exports = (app) => {
   app.use(express.static(path.join(__dirname, "..", "public")));
 
   // Handles access to the favicon
-  app.use(favicon(path.join(__dirname, "..", "public", "images", "favicon.ico")));
+  app.use(
+    favicon(path.join(__dirname, "..", "public", "images", "favicon.ico"))
+  );
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || "super hyper secret key",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        name: "mySessionCookie",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        maxAge: 600000, // 60 * 1000 ms === 1 min
+      },
+      store: MongoStore.create({
+        mongoUrl: MONGO_URI,
+      }),
+    })
+  );
 };

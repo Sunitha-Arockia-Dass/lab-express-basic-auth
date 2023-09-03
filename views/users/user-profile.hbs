@@ -1,0 +1,20 @@
+<div class="user-profile">
+  <div class="user">
+
+    {{#with user}}
+
+      <h1>Welcome {{username}}.You r now logged in</h1>
+
+    {{/with}}
+  </div>
+
+  <img src="/images/favicon.avif" alt="error" />
+  <div class="button">
+    <form action="/logout" method="get">
+      <button type="submit">Logout</button>
+    </form>
+
+    <a href="/">Go Back</a>
+  </div>
+
+</div>

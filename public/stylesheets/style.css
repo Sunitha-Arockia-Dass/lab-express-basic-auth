@@ -4,5 +4,97 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+.nav ul {
+  list-style: none;
+  background-color: purple;
+  color: pink;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.nav ul li {
+  padding: 20px;
+}
+.nav a {
+  text-decoration: none;
+  font-size: 2em;
+}
+.home {
+  margin-top: 15%;
+  text-align: center;
+  color: red;
+}
+#form {
+  margin-top: 15%;
+  text-align: center;
+}
+#form h2 {
+  text-decoration: underline;
+  font-size: 2em;
+}
+#form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#form input {
+  margin: 15px;
+}
+#form label {
+  font-size: 1.5em;
+  color: purple;
+}
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user h1 {
+  color: red;
+}
+.button {
+  display: flex;
+  flex-direction: column;
+}
+form button {
+  margin: 15px;
+  padding: 0px 15px;
+  font-size: 1.3em;
+}
+.button a {
+  width: 70px;
+  margin-left: 15px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid rgb(77, 77, 77);
+  background-color: rgb(229, 229, 229);
+  padding-left: 15px;
+  font-size: 1.2em;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main img {
+  height: 40%;
+  width: 40%;
+}
+.main a {
+  margin-top: 20px;
+  width: 70px;
+  margin-left: 15px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid rgb(77, 77, 77);
+  background-color: rgb(229, 229, 229);
+  padding-left: 10px;
+  font-size: 1.2em;
+}
+.flashMessage {
+  text-align: center;
+  color: red;
 }
